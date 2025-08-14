@@ -2,6 +2,7 @@ import crypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
+import isAuth from "../utils/isAuth.js";
 
 export const Mutation = {
   signin: async (parent, { register }, context) => {
@@ -56,6 +57,14 @@ export const Mutation = {
   },
 
   profile: async (parent, { newProfile }, context) => {
-    
+    const { db, user } = context;
+    isAuth(user);
+
+    const saveData = await db.profile.create({
+      data: {
+        ...newProfile,
+      },
+    });
+    return saveData;
   },
 };

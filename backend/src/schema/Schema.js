@@ -37,9 +37,10 @@ export const typeDefs = gql`
     name: String
     address: String!
     phone: String!
+    imageUrl: String!
     userId: String!
   }
-  
+
   type Query {
     users: [User!]!
     profiles: [Profile!]!
