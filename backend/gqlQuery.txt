@@ -1,0 +1,43 @@
+mutation($register: UserInput!){
+  signin(register: $register) {
+    id
+    email
+    role
+  }
+}
+
+{
+  "register": {
+    "email": "vendor1@example.com",
+    "password": "Password123",
+    "role": "VENDOR"
+  }
+}
+
+mutation($login: LoginInput!){
+  signup(login: $login) {
+    token
+    user {
+      id
+      email
+      role
+    }
+  }
+}
+
+{
+  "login": {
+     "email": "vendor1@example.com",
+    "password": "Password123"
+  }
+}
+
+Query
+1.Get Users list
+query {
+  users {
+    id
+    email
+    role
+  }
+}
