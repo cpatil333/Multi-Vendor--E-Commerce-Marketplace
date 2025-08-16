@@ -1,0 +1,144 @@
+.btn {
+  width: 150px;
+  background-color: purple;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+}
+.container {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+table {
+  width: 80%;
+  margin: 20px auto;
+}
+thead tr th {
+  background-color: black;
+  color: white;
+}
+tbody tr td {
+  background-color: #fff;
+  border: 1px solid grey;
+  padding: 5px;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+}
+
+.editbtn {
+  width: 80px;
+  background-color: rgba(0, 0, 255, 0.765);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+.deletebtn {
+  width: 80px;
+  background-color: rgba(255, 0, 0, 0.765);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.profilebtn {
+  width: 80px;
+  background-color: rgb(0 0 0 / 42%);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+input {
+  width: 250px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid orange;
+  font-size: 18px;
+}
+select {
+  width: 270px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid orange;
+  font-size: 18px;
+}
+
+.navbar {
+  width: 100%;
+  height: 40px;
+  background-color: purple;
+}
+ul li {
+  display: inline-block;
+  margin: 10px;
+}
+
+.Link {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.filter-select {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* space between each filter */
+  align-items: center; /* vertical alignment inside row */
+  justify-content: center; /* horizontal centering */
+  margin-bottom: 20px;
+}
+
+.filter-select div {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between label and select */
+}
+
+label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 5px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #eee;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -59,10 +59,35 @@ export const Mutation = {
   profile: async (parent, { newProfile }, context) => {
     const { db, user } = context;
     isAuth(user);
-
+    //console.log(newProfile);
     const saveData = await db.profile.create({
       data: {
         ...newProfile,
+      },
+    });
+
+    return saveData;
+  },
+
+  editUser: async (parent, { userUpdate }, context) => {
+    const { db, user } = context;
+    isAuth(user);
+    const userData = await db.user.findUnique({
+      where: { id: userUpdate.id },
+    });
+
+    if (!userData) {
+      throw new Error("User does not exist!");
+    }
+
+    const hassedPassword = await crypt.hash(userUpdate.password, 10);
+    
+    const saveData = await db.user.update({
+      where: { id: userData.id },
+      data: {
+        email: userUpdate.email,
+        password: hassedPassword,
+        role: userUpdate.role,
       },
     });
     return saveData;

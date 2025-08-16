@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export const db = {
   user: prisma.user,
-  prfile: prisma.profile,
+  profile: prisma.profile,
   vendorStore: prisma.vendorStore,
   product: prisma.product,
   productImage: prisma.productImage,

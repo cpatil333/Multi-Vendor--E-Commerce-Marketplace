@@ -22,7 +22,12 @@ export const typeDefs = gql`
     password: String!
     role: String!
   }
-
+  input UserEditInput {
+    id: ID!
+    email: String!
+    password: String!
+    role: String!
+  }
   input LoginInput {
     email: String!
     password: String!
@@ -43,12 +48,14 @@ export const typeDefs = gql`
 
   type Query {
     users: [User!]!
+    userById(id: ID!): User!
     profiles: [Profile!]!
   }
 
   type Mutation {
     signin(register: UserInput!): User!
     signup(login: LoginInput!): Token!
+    editUser(userUpdate: UserEditInput!): User!
     profile(newProfile: ProfileInput!): Profile!
   }
 `;

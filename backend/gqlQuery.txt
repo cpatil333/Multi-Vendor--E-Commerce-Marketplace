@@ -32,10 +32,67 @@ mutation($login: LoginInput!){
   }
 }
 
+mutation($userUpdate: UserEditInput!){
+  editUser(userUpdate: $userUpdate) {
+    id
+    email
+    role
+  }
+}
+mutation($userUpdate: UserEditInput!){
+  editUser(userUpdate: $userUpdate) {
+    id
+    email
+    role
+  }
+}
+
+mutation($newProfile: ProfileInput!){
+  profile(newProfile: $newProfile) {
+    id
+    name
+    address
+    phone
+    imageUrl
+    userId
+  }
+}
+
+{
+  "newProfile": {
+    "name":"Vendor One",
+    "address": "Shop No 21, MG Road, Bengaluru",
+    "phone": "+91-9123456780",
+    "imageUrl": "VendorOne.jpg",
+    "userId": "689dadbc53077b4081043638"
+  }
+}
+
 Query
 1.Get Users list
 query {
   users {
+    id
+    email
+    role
+  }
+}
+
+2.Get Profile list
+query{
+  profiles {
+    id
+    name
+    address
+    phone
+     imageUrl
+    userId
+  }
+}
+
+3.Get User by id
+query($userByIdId: ID!){
+  userById(id: $userByIdId) {
     id
     email
     role
