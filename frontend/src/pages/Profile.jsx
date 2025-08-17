@@ -1,20 +1,46 @@
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { USER_PROFILE } from "../apollo/Mutation";
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({});
-  const [selectedFile, setSelectedFile] = useState({});
-  const [profile] = useMutation(USER_PROFILE, {
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    phone: "",
+    imageUrl: "",
+    userId: "",
+  });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const profileData = useLoaderData();
+  //console.log(profileData);
+  const [userProfile] = useMutation(USER_PROFILE, {
     onCompleted() {
       navigate("/home");
     },
   });
-  const params = useParams();
-  const userId = params.id;
 
+  useEffect(() => {
+    if (profileData?.profileById) {
+      setFormData({
+        name: profileData.profileById.name,
+        address: profileData.profileById.address,
+        phone: profileData.profileById.phone,
+        imageUrl: profileData.profileById.imageUrl,
+        userId: profileData.profileById.userId,
+      });
+    } else {
+      setFormData({
+        name: "",
+        address: "",
+        phone: "",
+        imageUrl: "",
+        userId: profileData.userId,
+      });
+    }
+  }, [profileData]);
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -28,7 +54,7 @@ export const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    //console.log(formData);
     try {
       let uploadFileName = "";
       if (selectedFile) {
@@ -44,9 +70,11 @@ export const Profile = () => {
           const contentType = response.headers.get("content-type") || "";
 
           if (!contentType.includes("application/json")) {
+            // only error if it’s *not* JSON
             const text = await response.text();
-            throw new Error("Server returned non-JSON" + text);
+            throw new Error("Server returned non-JSON: " + text);
           }
+
           const result = await response.json();
           uploadFileName = result.fileName;
         } catch (error) {
@@ -55,16 +83,20 @@ export const Profile = () => {
         }
       }
 
-      const { data } = await profile({
-        newProfile: {
-          ...formData,
-          userId: params.id,
-          imageUrl: uploadFileName,
+      const { data } = await userProfile({
+        variables: {
+          updateProfile: {
+            userId: formData.userId,
+            name: formData.name,
+            address: formData.address,
+            phone: formData.phone,
+            imageUrl: uploadFileName,
+          },
         },
       });
 
       if (data?.profile) {
-        alert("User Profiel udpate successfully!");
+        alert("User Profile udpate successfully!");
       } else {
         alert("User Profile failed!");
       }
@@ -82,6 +114,7 @@ export const Profile = () => {
           <input
             type="text"
             name="name"
+            value={formData.name}
             placeholder="Name"
             onChange={handleChange}
           />
@@ -90,6 +123,7 @@ export const Profile = () => {
           <textarea
             type="text"
             name="address"
+            value={formData.address}
             placeholder="Address"
             onChange={handleChange}
             rows={5}
@@ -100,6 +134,7 @@ export const Profile = () => {
           <input
             type="text"
             name="phone"
+            value={formData.phone}
             placeholder="Phone"
             onChange={handleChange}
           />
@@ -111,7 +146,10 @@ export const Profile = () => {
             placeholder="Image"
             onChange={handleFileChange}
           />
+          <br />
+          <label>{formData.imageUrl}</label>
         </div>
+        <br />
         <div>
           <button type="submit" className="btn">
             Submit

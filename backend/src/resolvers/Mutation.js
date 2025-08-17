@@ -56,17 +56,38 @@ export const Mutation = {
     return { user, token };
   },
 
-  profile: async (parent, { newProfile }, context) => {
+  profile: async (parent, { updateProfile }, context) => {
     const { db, user } = context;
     isAuth(user);
-    //console.log(newProfile);
-    const saveData = await db.profile.create({
-      data: {
-        ...newProfile,
-      },
-    });
 
-    return saveData;
+    const userId = await db.profile.findFirst({
+      where: { userId: updateProfile.userId },
+    });
+    
+    let updateData = "";
+    if (!userId) {
+      updateData = await db.profile.create({
+        data: {
+          name: updateProfile.name,
+          address: updateProfile.address,
+          phone: updateProfile.phone,
+          imageUrl: updateProfile.imageUrl,
+          userId: updateProfile.userId,
+        },
+      });
+    } else {
+      updateData = await db.profile.update({
+        where: { userId: updateProfile.userId },
+        data: {
+          name: updateProfile.name,
+          address: updateProfile.address,
+          phone: updateProfile.phone,
+          imageUrl: updateProfile.imageUrl,
+        },
+      });
+    }
+
+    return updateData;
   },
 
   editUser: async (parent, { userUpdate }, context) => {
@@ -81,7 +102,7 @@ export const Mutation = {
     }
 
     const hassedPassword = await crypt.hash(userUpdate.password, 10);
-    
+
     const saveData = await db.user.update({
       where: { id: userData.id },
       data: {

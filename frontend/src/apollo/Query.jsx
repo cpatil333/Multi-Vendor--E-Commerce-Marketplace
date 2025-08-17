@@ -9,6 +9,7 @@ export const GET_USERS = gql`
     }
   }
 `;
+
 export const GET_USER = gql`
   query ($userById: ID!) {
     userById(id: $userById) {
@@ -20,8 +21,8 @@ export const GET_USER = gql`
 `;
 
 export const GET_PROFILE = gql`
-  query {
-    profiles {
+  query ($userId: ID!) {
+    profileById(userId: $userId) {
       id
       name
       address

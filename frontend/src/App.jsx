@@ -6,11 +6,10 @@ import { AppLayout } from "./components/AppLayout";
 import { ErrorPage } from "./components/ErrorPage";
 import { Login, loginData } from "./components/Login";
 import { Register, registerData } from "./pages/Register";
-import { profileLoader } from "./API/profileLoader.jsx";
 import { usersLoader } from "./API/usersLoader.jsx";
 import { EditUser } from "./pages/EditUser.jsx";
 import { getUserById } from "./API/getUserById.jsx";
-
+import { getProfileById } from "./API/getProfileById.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -40,7 +39,8 @@ function App() {
         },
         {
           path: "/profile/:id",
-          element: <Profile />
+          element: <Profile />,
+          loader: getProfileById,
         },
       ],
     },

@@ -8,11 +8,19 @@ import { Mutation } from "../backend/src/resolvers/Mutation.js";
 import { Query } from "../backend/src/resolvers/Query.js";
 import { db } from "../backend/src/db.js";
 import { expressMiddleware } from "@apollo/server/express4";
+import { fileURLToPath } from "url";
+import routeUploads from "./src/middleware/upload.js";
+import path from "path";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use("/uploads", routeUploads);
+app.use("/uploads", express.static(path.join(__dirname, "src/uploads")));
 
 const server = new ApolloServer({
   typeDefs,

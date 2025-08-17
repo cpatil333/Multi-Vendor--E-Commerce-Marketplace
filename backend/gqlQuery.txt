@@ -78,16 +78,20 @@ query {
   }
 }
 
-2.Get Profile list
-query{
-  profiles {
+2.Get Profile by userId
+query($userId: ID!){
+  profileById(userId: $userId) {
     id
     name
     address
     phone
-     imageUrl
+    imageUrl
     userId
   }
+}
+
+{
+  "userId": "689dadf153077b4081043639"
 }
 
 3.Get User by id

@@ -6,7 +6,7 @@ const router = express.Router();
 
 const uploadPath = path.join(process.cwd(), "src", "uploads");
 
-const storege = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadPath);
   },
@@ -16,11 +16,11 @@ const storege = multer.diskStorage({
   },
 });
 
-const upload = multer({ storege });
+const upload = multer({ storage });
 
-router.post("/", upload.single("image"), (req, res) => {
+router.post("/", upload.single("imageUrl"), (req, res) => {
   if (req.file) {
-    res.json({ filename: req.file.filename });
+    res.json({ fileName: req.file.filename });
   } else {
     res.status(400).json({ Error: "No file uploaded" });
   }

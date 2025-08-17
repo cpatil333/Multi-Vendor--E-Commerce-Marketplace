@@ -34,8 +34,8 @@ export const USER_LOGIN = gql`
 `;
 
 export const USER_PROFILE = gql`
-  mutation ($newProfile: ProfileInput!) {
-    profile(newProfile: $newProfile) {
+  mutation ($updateProfile: UpdateProfileInput!) {
+    profile(updateProfile: $updateProfile) {
       id
       name
       address

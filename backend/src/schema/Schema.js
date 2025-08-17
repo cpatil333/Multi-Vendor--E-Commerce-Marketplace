@@ -38,24 +38,25 @@ export const typeDefs = gql`
     token: String
   }
 
-  input ProfileInput {
+  input UpdateProfileInput {
+    userId: String!
     name: String
     address: String!
     phone: String!
     imageUrl: String!
-    userId: String!
   }
 
   type Query {
     users: [User!]!
     userById(id: ID!): User!
     profiles: [Profile!]!
+    profileById(userId: ID!): Profile!
   }
 
   type Mutation {
     signin(register: UserInput!): User!
     signup(login: LoginInput!): Token!
     editUser(userUpdate: UserEditInput!): User!
-    profile(newProfile: ProfileInput!): Profile!
+    profile(updateProfile: UpdateProfileInput!): Profile!
   }
 `;

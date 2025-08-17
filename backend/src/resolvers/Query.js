@@ -25,4 +25,13 @@ export const Query = {
 
     return userIdData;
   },
+
+  profileById: async (parent, { userId }, context) => {
+    const { db, user } = context;
+    //isAuth(user);
+    const profile = await db.profile.findFirst({
+      where: { userId: userId },
+    });
+    return profile;
+  },
 };
